@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=thapo-calc-gtkmm
+Comment=thapo-calc-gtkmm
+Exec=thapo-calc-gtkmm
+Icon=calc
+Terminal=false
+Type=Application
+Categories=Utility;Calculator;;

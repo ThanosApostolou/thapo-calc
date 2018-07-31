@@ -11,4 +11,9 @@ lib = shared_library('thapo-calc', sources : lib_src, version : '0.2', soversion
 executable('thapo-calc-cli', sources : thapo_calc_cli_src, include_directories : incdir, link_with : lib, install : true)
 executable('thapo-calc-gtkmm', sources : thapo_calc_gtkmm_src, include_directories : incdir, link_with : lib, dependencies : gtkmm_dep, gui_app : true, install : true)
 
-install_data('README.md', install_dir : join_paths(get_option('datadir'), 'thapo-calc'))
+install_data('README.md')
+if build_machine.system() == 'linux'
+	install_data('data/thapo-calc-gtkmm.desktop', install_dir : join_paths(get_option('datadir'), 'applications'))
+elif build_machine.system() == 'windows'
+	meson.add_install_script('windows-bundle.sh', get_option('bindir'), get_option('libdir'))
+endif
