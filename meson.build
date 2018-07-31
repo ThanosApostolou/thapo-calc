@@ -1,16 +1,14 @@
-project('tapocalc', 'cpp')
+project('thapo-calc', 'cpp')
 
-opt_bundle = get_option('bundle')
-if opt_bundle
-	rpath = '.'
-else
-	rpath = ''
-endif
+gtkmm_dep = dependency('gtkmm-3.0', method : 'pkg-config')
 
 lib_src = ['src/libthapo-calc/libthapo-calc.cpp', 'src/libthapo-calc/grammar.cpp']
-lib = shared_library('thapo-calc', sources : lib_src, version : '0.2', soversion : '0.2', install : true)
 incdir = include_directories('src/libthapo-calc')
-exec_src = ['src/thapo-calc-cli/thapo-calc-cli.cpp']
+thapo_calc_cli_src = ['src/thapo-calc-cli/thapo-calc-cli.cpp']
+thapo_calc_gtkmm_src = ['src/thapo-calc-gtkmm/thapo-calc-gtkmm.cpp', 'src/thapo-calc-gtkmm/buttons.cpp']
 
-executable('thapo-calc-cli', sources : exec_src,  include_directories : incdir, link_with : lib, install : true, install_rpath : rpath)
+lib = shared_library('thapo-calc', sources : lib_src, version : '0.2', soversion : '0.2', install : true)
+executable('thapo-calc-cli', sources : thapo_calc_cli_src, include_directories : incdir, link_with : lib, install : true)
+executable('thapo-calc-gtkmm', sources : thapo_calc_gtkmm_src, include_directories : incdir, link_with : lib, dependencies : gtkmm_dep, gui_app : true, install : true)
+
 install_data('README.md', install_dir : join_paths(get_option('datadir'), 'thapo-calc'))

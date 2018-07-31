@@ -1,1 +1,0 @@
-option('bundle', type : 'boolean', value : false)
