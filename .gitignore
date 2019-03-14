@@ -1,1 +1,4 @@
 build/
+nbproject/
+.project
+CMakeLists.txt.user
