@@ -1,5 +1,5 @@
 // API used by all programs which also includes error.h
-#include "libthapo-calc.h"
+#include "thapo-calc-lib.h"
 #include "grammar.h"
 
 //Standard libraries which used by libtcalc

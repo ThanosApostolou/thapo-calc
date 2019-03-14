@@ -1,4 +1,4 @@
-#include "libthapo-calc.h"
+#include "thapo-calc-lib.h"
 #include "error.h"
 #include "limits"
 int main(int argc, char* argv[]) {
