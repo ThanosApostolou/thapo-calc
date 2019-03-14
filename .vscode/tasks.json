@@ -4,16 +4,21 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "cmake",
+            "label": "build-cmake",
             "type": "shell",
             "command": "cmake",
-            "args": [".", "-B build"],
+            "args": [
+                ".",
+                "-B",
+                "build"
+            ],
             "options": {
                 "cwd": "${workspaceRoot}"
-            }
+            },
+            "problemMatcher": []
         },
         {
-            "label": "make",
+            "label": "build-make",
             "type": "shell",
             "command": "make",
             "options": {
@@ -23,7 +28,8 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "dependsOn": ["cmake"]
+            "dependsOn": ["build-cmake"],
+            "problemMatcher": []
         },
         {
             "label": "run-cli",
@@ -31,7 +37,8 @@
             "command": "./thapo-calc",
             "options": {
                 "cwd": "${workspaceRoot}/build/src/thapo-calc-cli"
-            }
+            },
+            "problemMatcher": []
         },
         {
             "label": "run-gui",
@@ -39,7 +46,17 @@
             "command": "./thapo-calc-gui",
             "options": {
                 "cwd": "${workspaceRoot}/build/src/thapo-calc-gui"
-            }
+            },
+            "problemMatcher": []
         },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "rm -rf ${workspaceRoot}/build",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "problemMatcher": []
+        }
     ]
 }
