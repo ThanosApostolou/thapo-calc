@@ -1,1 +1,7 @@
 build/
+out/
+nbproject/
+.vs/
+.project
+CMakeLists.txt.user
+CMakeSettings.json

@@ -1,0 +1,62 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build-cmake",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                ".",
+                "-B",
+                "build"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "build-make",
+            "type": "shell",
+            "command": "make",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": ["build-cmake"],
+            "problemMatcher": []
+        },
+        {
+            "label": "run-cli",
+            "type": "shell",
+            "command": "./thapo-calc",
+            "options": {
+                "cwd": "${workspaceRoot}/build/src/thapo-calc-cli"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "run-gui",
+            "type": "shell",
+            "command": "./thapo-calc-gui",
+            "options": {
+                "cwd": "${workspaceRoot}/build/src/thapo-calc-gui"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "rm -rf ${workspaceRoot}/build",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "problemMatcher": []
+        }
+    ]
+}
