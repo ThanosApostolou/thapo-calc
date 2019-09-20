@@ -4,6 +4,7 @@ set (CMAKE_CXX_STANDARD 14)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (thapo-calc_VERSION_MAJOR 0)
 set (thapo-calc_VERSION_MINOR 2)
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 include_directories(src/include)
 

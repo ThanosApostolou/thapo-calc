@@ -4,6 +4,5 @@ set_target_properties (thapo-calc-lib PROPERTIES PUBLIC_HEADER "../include/thapo
 
 install (
     TARGETS thapo-calc-lib
-    DESTINATION lib 
     PUBLIC_HEADER DESTINATION include
 )

@@ -1,4 +1,6 @@
 build/
+out/
 nbproject/
 .project
+.vs/
 CMakeLists.txt.user
