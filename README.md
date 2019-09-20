@@ -2,19 +2,19 @@
 ThApo-Calc (Thanos Apostolou' Calculator) is a simple calculator written in c++. Currently there is the command line app **thapo-calc-cli** which is using the library **libthapo-calc**. In the future a Gui will be added, most likely **thapo-calc-qt** which will be using the same library.
 
 **BUILD INSTRUCTIONS**
-  1. with meson
+  - LINUX
     ```
-    meson --prefix=/usr --buildtype=release build
-    cd build
+    mkdir build && cd build
+    cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="${HOME}/Qt/5.13.1/gcc_64 ..
     ninja
-    ninja install
+    DESTDIR=install ninja install
     ```
-  1. with cmake
+  - LINUX BUNDLE
     ```
-    cmake -DCMAKE_BUILD_TYPE=Release . -B build
-    cd build
-    make
-    make install
+    mkdir build && cd build
+    cmake -GNinja -DCMAKE_BUILD_TYPE=Release " ..
+    ninja
+    DESTDIR=install ninja install
     ```
 **BUILD BINARIES FOR WINDOWS**
 

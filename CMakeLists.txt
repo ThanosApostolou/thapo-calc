@@ -9,5 +9,8 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 include_directories(src/include)
 
 add_subdirectory (src/thapo-calc-lib)
-add_subdirectory (src/thapo-calc-cli)
 add_subdirectory (src/thapo-calc-gui)
+
+if(NOT ANDROID)
+    add_subdirectory (src/thapo-calc-cli)
+endif()
