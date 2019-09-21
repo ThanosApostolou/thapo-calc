@@ -32,7 +32,7 @@ ThApo-Calc (Thanos Apostolou' Calculator) is a simple calculator written in c++.
     Add build step `cmake.exe --build . --target install` to Release configuration.
     Or open "x64 native tools command prompt for VS 2019" and run:
     ```
-    cmake.exe -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=C:\Qt\5.13.1\msvc2017_64 -DCMAKE_INSTALL_PREFIX=install . -B build
+    cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=C:\Qt\5.13.1\msvc2017_64 -DCMAKE_INSTALL_PREFIX=build/install . -B build
     ninja -C build
     ninja -C build install
     ```
