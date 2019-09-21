@@ -3,6 +3,7 @@ ThApo-Calc (Thanos Apostolou' Calculator) is a simple calculator written in c++.
 
 
 **BUILD DEPENDENCIES**
+  - cmake & ninja (or make)
   - Qt5Qml
   - Qt5Core
   - Qt5Gui
@@ -12,22 +13,26 @@ ThApo-Calc (Thanos Apostolou' Calculator) is a simple calculator written in c++.
 **BUILD INSTRUCTIONS**
   - LINUX
     ```
-    mkdir build && cd build
-    cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="${HOME}/Qt/5.13.1/gcc_64 ..
-    ninja
-    DESTDIR=install ninja install
+    cmake -GNinja -DCMAKE_BUILD_TYPE=Release . -B build
+    ninja -C build
+    DESTDIR=/usr ninja -C build install
     ```
-  - LINUX BUNDLE
-    ```
-    mkdir build && cd build
-    cmake -GNinja -DCMAKE_BUILD_TYPE=Release " ..
-    ninja
-    DESTDIR=install ninja install
-    ```
+
   - ANDROID from Linux
 
-    open project with qtcreator (install the android kits using QT MaintenanceTool)
+    Setup QtCreator with all android kits (using QT MaintenanceTool)
+    Add all kits to the project and build the apk files.
 
   - WINDOWS
 
-    Configure vs studio and qt creator and use the cmake install target.
+    Install VS Studio with msvc
+    Install cmake and make and add them to path
+    Setup Qt Creator with latest qt msvc builds.
+    Configure project and change CMAKE_INSTALL_PREFIX to PROJECT\LOCATION\out\install
+    Add build step `cmake.exe --build . --target install` to Release configuration.
+    Or open "x64 native tools command prompt for VS 2019" and run:
+    ```
+    cmake.exe -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=C:\Qt\5.13.1\msvc2017_64 -DCMAKE_INSTALL_PREFIX=install . -B build
+    ninja -C build
+    ninja -C build install
+    ```
