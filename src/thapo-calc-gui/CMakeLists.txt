@@ -6,11 +6,19 @@ set (CMAKE_AUTOUIC ON)
 find_package (Qt5 COMPONENTS Core Gui Quick QuickControls2 Qml REQUIRED)
 
 set (GUI_SOURCES thapo-calc-gui.cpp qml.qrc)
+if(WIN32)
+    set (GUI_TYPE WIN32)
+endif(WIN32)
+# Set some Apple MacOS Specific settings
+if (APPLE)
+    set (GUI_TYPE MACOSX_BUNDLE)
+endif(APPLE)
+
 
 if(ANDROID)
     add_library(thapo-calc-gui SHARED ${GUI_SOURCES})
 else()
-    add_executable (thapo-calc-gui ${GUI_SOURCES})
+    add_executable (thapo-calc-gui ${GUI_TYPE} ${GUI_SOURCES})
 endif()
 
 target_compile_definitions(thapo-calc-gui PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
