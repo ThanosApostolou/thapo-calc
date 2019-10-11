@@ -13,9 +13,9 @@ ThApo-Calc (Thanos Apostolou' Calculator) is a simple calculator written in c++.
 **BUILD INSTRUCTIONS**
   - LINUX
     ```
-    cmake -GNinja -DCMAKE_BUILD_TYPE=Release . -B build
+    cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release . -B build
     ninja -C build
-    DESTDIR=/usr ninja -C build install
+    DESTDIR=/  ninja -C build install
     ```
 
   - ANDROID from Linux

@@ -8,6 +8,7 @@
             "type": "shell",
             "command": "cmake",
             "args": [
+                "-GNinja",
                 ".",
                 "-B",
                 "build"
@@ -20,9 +21,9 @@
         {
             "label": "build-make",
             "type": "shell",
-            "command": "make",
+            "command": "ninja -C build",
             "options": {
-                "cwd": "${workspaceRoot}/build"
+                "cwd": "${workspaceRoot}"
             },
             "group": {
                 "kind": "build",

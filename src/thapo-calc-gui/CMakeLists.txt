@@ -24,11 +24,14 @@ endif()
 target_compile_definitions(thapo-calc-gui PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries (thapo-calc-gui PRIVATE thapo-calc-lib Qt5::Core Qt5::Gui Qt5::Quick Qt5::QuickControls2 Qt5::Qml)
 
-install (TARGETS thapo-calc-gui DESTINATION bin)
+install (
+    TARGETS thapo-calc-gui
+    DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
 
 IF (WIN32)
 	get_target_property(_qmake_executable Qt5::qmake IMPORTED_LOCATION)
 	get_filename_component(_qt_bin_dir "${_qmake_executable}" DIRECTORY)
 	find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${_qt_bin_dir}")
-	add_custom_command(TARGET thapo-calc-gui POST_BUILD COMMAND "${CMAKE_COMMAND}" -E env PATH="${_qt_bin_dir}" "${WINDEPLOYQT_EXECUTABLE}" --qmldir "${CMAKE_CURRENT_SOURCE_DIR}" --dir "${CMAKE_INSTALL_PREFIX}/bin" "$<TARGET_FILE:thapo-calc-gui>")
+	add_custom_command(TARGET thapo-calc-gui POST_BUILD COMMAND "${CMAKE_COMMAND}" -E env PATH="${_qt_bin_dir}" "${WINDEPLOYQT_EXECUTABLE}" --qmldir "${CMAKE_CURRENT_SOURCE_DIR}" --dir "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}" "$<TARGET_FILE:thapo-calc-gui>")
 ENDIF()

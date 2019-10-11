@@ -4,5 +4,6 @@ set_target_properties (thapo-calc-lib PROPERTIES PUBLIC_HEADER "../include/thapo
 
 install (
     TARGETS thapo-calc-lib
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     PUBLIC_HEADER DESTINATION include
 )
