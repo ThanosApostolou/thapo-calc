@@ -5,7 +5,7 @@ set (CMAKE_AUTOUIC ON)
 
 find_package (Qt5 COMPONENTS Core Gui Quick QuickControls2 Qml REQUIRED)
 
-set (GUI_SOURCES thapo-calc-gui.cpp qml.qrc)
+set (GUI_SOURCES thapo-calc-gui.cpp Controller.cpp qml.qrc)
 if(WIN32)
     set (GUI_TYPE WIN32)
 endif(WIN32)

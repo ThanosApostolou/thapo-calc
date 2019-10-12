@@ -1,6 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQml 2.3
+import thapo.calc.Controller 1.0
 
 ApplicationWindow {
     id: main_window
@@ -9,48 +10,46 @@ ApplicationWindow {
     height: 480
     title: qsTr("Thapo Calc")
 
+    Controller {
+        id: controller
+    }
+
+
     Grid {
         id: grid
         x: 0
         y: 80
-        width: 100
+        width: 200
         height: 100
+    }
+
+    TextField {
+        id: output
+        x: 0
+        y: 0
+        width: 400
+        height: 100
+        readOnly: true
+        text: controller.output
+    }
+
+    TextField {
+        id: input
+        x: 0
+        y: 100
+        width: 400
+        height: 100
+        text: qsTr("")
+        onTextChanged: controller.input = text
     }
 
     Button {
         id: button
         text: qsTr("Calculate")
-        anchors.rightMargin: 0
-        anchors.bottomMargin: 0
-        anchors.leftMargin: 0
-        anchors.topMargin: 358
-        width: 200
+        x: 0
+        y: 200
+        width: 400
         height: 100
     }
 
-    Rectangle {
-        x: 100
-        y: 186
-        width: 200
-        height: 100
-        color: "red"
-
-        Text {
-            anchors.centerIn: parent
-            text: "Hello, World!"
-        }
-
-        TapHandler {
-            onTapped: parent.color = "blue"
-        }
-    }
-
-    TextField {
-        id: textField
-        x: 274
-        y: 212
-        width: 200
-        height: 100
-        text: qsTr("Text Field")
-    }
 }

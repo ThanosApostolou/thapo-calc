@@ -19,7 +19,7 @@
             "problemMatcher": []
         },
         {
-            "label": "build-make",
+            "label": "build",
             "type": "shell",
             "command": "ninja -C build",
             "options": {
@@ -48,6 +48,7 @@
             "options": {
                 "cwd": "${workspaceRoot}/build/src/thapo-calc-gui"
             },
+            "dependsOn": ["build"],
             "problemMatcher": []
         },
         {
