@@ -16,7 +16,7 @@ void Controller::setInput(const QString &input) {
     m_input = input;
     std::cout << "input: " << m_input.toStdString() << std::endl;
     try {
-        long double result = calculation(m_input.toStdString());
+        long double result = calculation(m_input.toStdString().c_str());
         setOutput(QString::number(result, 'D'));
     }
     catch (Myerror myerror) {
@@ -35,6 +35,6 @@ void Controller::setOutput(const QString &output) {
         return;
     }
     m_output = output;
-    std::cout << m_input.toStdString() << std::endl;
+    std::cout << m_output.toStdString() << std::endl;
     emit outputChanged();
 }
