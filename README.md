@@ -1,5 +1,8 @@
-# thapo-calc
-ThApo-Calc (Thanos Apostolou' Calculator) is a simple calculator written in c++. Currently there is the command line app **thapo-calc-cli** which is using the library **libthapo-calc**. In the future a Gui will be added, most likely **thapo-calc-qt** which will be using the same library.
+# ThApo Calculator
+Simple cross-platform (linux, windows, android) calculator implementing a CLI app **thapo-calc-cli** which is using the library **libthapo-calc** and a GUI app **thapo-calc-gui**.
+
+### Technologies used:
+  - C++, Qt, QML
 
 
 **BUILD DEPENDENCIES**
