@@ -23,7 +23,7 @@ ENDIF(MSVC)
 include_directories(src/include)
 
 add_subdirectory (src/thapo-calc-lib)
-add_subdirectory (src/thapo-calc-gui)
+#add_subdirectory (src/thapo-calc-gui)
 
 if(NOT ANDROID)
     add_subdirectory (src/thapo-calc-cli)

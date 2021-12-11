@@ -5,3 +5,5 @@ nbproject/
 .project
 CMakeLists.txt.user
 CMakeSettings.json
+/golang/thapo-calc-cli/thapo-calc-cli.exe
+/golang/thapo-calc-cli/thapo-calc-cli
