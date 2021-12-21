@@ -3,6 +3,7 @@ package service
 import (
 	"errors"
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 	"unicode"
@@ -28,7 +29,7 @@ func (this *CalcService) CalcExpression(expression string) (float64, error) {
 		return result, errors.New("empty expression")
 	}
 
-	result, index, err := this.getNumber(runes, index)
+	result, index, err := this.calcTerm(runes, index)
 	if err != nil {
 		return result, err
 	}
@@ -42,11 +43,11 @@ func (this *CalcService) CalcExpression(expression string) (float64, error) {
 			var newResult float64
 			if runes[index] == '+' {
 				index++
-				newResult, index, err = this.getNumber(runes, index)
+				newResult, index, err = this.calcTerm(runes, index)
 				result += newResult
 			} else if runes[index] == '-' {
 				index++
-				newResult, index, err = this.getNumber(runes, index)
+				newResult, index, err = this.calcTerm(runes, index)
 				result -= newResult
 			}
 		}
@@ -57,6 +58,54 @@ func (this *CalcService) CalcExpression(expression string) (float64, error) {
 
 func expression(runes []rune) {
 
+}
+
+func (this *CalcService) calcTerm(runes []rune, index int) (float64, int, error) {
+	result, index, err := this.calcPower(runes, index)
+	if err != nil {
+		return result, index, err
+	}
+
+	for index < len(runes) {
+		if index < len(runes) {
+			if runes[index] != '*' && runes[index] != '/' {
+				break
+			}
+			var newResult float64
+			if runes[index] == '*' {
+				index++
+				newResult, index, err = this.calcPower(runes, index)
+				result *= newResult
+			} else if runes[index] == '/' {
+				index++
+				newResult, index, err = this.calcPower(runes, index)
+				result /= newResult
+			}
+		}
+	}
+
+	return result, index, err
+}
+
+func (this *CalcService) calcPower(runes []rune, index int) (float64, int, error) {
+	result, index, err := this.getNumber(runes, index)
+	if err != nil {
+		return result, index, err
+	}
+
+	for index < len(runes) {
+		if index < len(runes) {
+			if runes[index] != '^' {
+				break
+			}
+			var newResult float64
+			index++
+			newResult, index, err = this.getNumber(runes, index)
+			result = math.Pow(result, newResult)
+		}
+	}
+
+	return result, index, err
 }
 
 func (this *CalcService) getNumber(runes []rune, index int) (float64, int, error) {
