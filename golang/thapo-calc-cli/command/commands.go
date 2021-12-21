@@ -1,14 +1,17 @@
-package commands
+package command
 
-import "os"
+import (
+	"os"
+	"thapo-calc-cli/service"
+)
 
 type CommandI interface {
 	Run()
 }
 
-func InitializeCommands() {
+func InitializeCommands(services *service.Services) {
 	if len(os.Args) > 1 && os.Args[1] == CALC_COMMAND {
-		var calcCommand = NewCalcCommand()
+		var calcCommand = NewCalcCommand(services.GetCalcService())
 		calcCommand.Run()
 	} else {
 		var defaultCommand = NewDefaultCommand()

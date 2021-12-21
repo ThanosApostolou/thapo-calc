@@ -1,4 +1,4 @@
-package commands
+package command
 
 import (
 	"flag"
@@ -24,14 +24,12 @@ func (this *DefaultCommand) Run() {
 		panic("Wrong command")
 	}
 
-	fmt.Println("default command")
-	fmt.Println("default command", *this.helpFlag)
 	if *this.helpFlag {
-		this.RunHelp()
+		this.Help()
 	}
 }
 
 // Run Help func
-func (this *DefaultCommand) RunHelp() {
+func (this *DefaultCommand) Help() {
 	fmt.Println("default command help message")
 }
