@@ -20,7 +20,7 @@ type CalcCommand struct {
 var _ CommandI = (*CalcCommand)(nil) // implement interface
 
 func NewCalcCommand(calcService *service.CalcService) *CalcCommand {
-	var cmdFlagSet = flag.NewFlagSet(CALC_COMMAND, flag.PanicOnError)
+	var cmdFlagSet = flag.NewFlagSet(CALC_COMMAND, flag.ContinueOnError)
 	var helpFlag = cmdFlagSet.Bool("help", false, "help message for calc")
 	return &CalcCommand{
 		calcService: calcService,
@@ -52,7 +52,7 @@ func (this *CalcCommand) Calc() {
 		os.Exit(1)
 	}
 	var expression = this.cmdFlagSet.Args()[0]
-	var result, err = this.calcService.CalcExpression(expression)
+	var result, err = this.calcService.Calculate(expression)
 	if err != nil {
 		log.Fatal(err.Error())
 	}

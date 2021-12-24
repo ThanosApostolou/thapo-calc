@@ -18,45 +18,65 @@ func NewCalcService() *CalcService {
 	return &CalcService{}
 }
 
-func (this *CalcService) CalcExpression(expression string) (float64, error) {
+func (this *CalcService) Calculate(expression string) (float64, error) {
 	fmt.Println("expression", expression)
-	var result float64 = 0
 	expression = RemoveSpaceFromString(expression)
 	var runes = []rune(expression)
 	var index int = 0
 
 	if len(runes) == 0 {
-		return result, errors.New("empty expression")
+		return 0, errors.New("empty expression")
 	}
+	result, _, err := this.calcExpression(runes, index, false)
+	return result, err
+}
 
+func (this *CalcService) calcExpression(runes []rune, index int, hasParenthesis bool) (float64, int, error) {
 	result, index, err := this.calcTerm(runes, index)
 	if err != nil {
-		return result, err
+		return result, index, err
 	}
 
 	for index < len(runes) {
 
 		if index < len(runes) {
-			if runes[index] != '-' && runes[index] != '+' {
-				return result, errors.New("unknown symbol" + string(runes[index]))
+			if runes[index] != '-' && runes[index] != '+' && runes[index] != ')' {
+				return result, index, errors.New("unknown symbol" + string(runes[index]))
 			}
 			var newResult float64
 			if runes[index] == '+' {
 				index++
 				newResult, index, err = this.calcTerm(runes, index)
+				if err != nil {
+					return result, index, err
+				}
 				result += newResult
 			} else if runes[index] == '-' {
 				index++
 				newResult, index, err = this.calcTerm(runes, index)
+				if err != nil {
+					return result, index, err
+				}
 				result -= newResult
+			} else if hasParenthesis {
+				if runes[index] == ')' {
+					index++
+					return result, index, err
+				} else {
+					return result, index, errors.New("Parenthesis don't match at index: " + fmt.Sprint(rune(index-1)))
+				}
+			} else if !hasParenthesis && runes[index] == ')' {
+				return result, index, errors.New("Parenthesis don't match at index: " + fmt.Sprint(rune(index)))
+			} else {
+				break
 			}
 		}
 	}
+	if hasParenthesis && runes[index-1] != ')' {
+		return result, index, errors.New("Parenthesis don't match at index: " + fmt.Sprint(index-1))
+	}
 
-	return result, nil
-}
-
-func expression(runes []rune) {
+	return result, index, nil
 
 }
 
@@ -75,11 +95,19 @@ func (this *CalcService) calcTerm(runes []rune, index int) (float64, int, error)
 			if runes[index] == '*' {
 				index++
 				newResult, index, err = this.calcPower(runes, index)
+				if err != nil {
+					return result, index, err
+				}
 				result *= newResult
 			} else if runes[index] == '/' {
 				index++
 				newResult, index, err = this.calcPower(runes, index)
+				if err != nil {
+					return result, index, err
+				}
 				result /= newResult
+			} else {
+				break
 			}
 		}
 	}
@@ -101,6 +129,9 @@ func (this *CalcService) calcPower(runes []rune, index int) (float64, int, error
 			var newResult float64
 			index++
 			newResult, index, err = this.getNumber(runes, index)
+			if err != nil {
+				return result, index, err
+			}
 			result = math.Pow(result, newResult)
 		}
 	}
@@ -114,6 +145,9 @@ func (this *CalcService) getNumber(runes []rune, index int) (float64, int, error
 		if unicode.IsNumber(runes[index]) || runes[index] == '.' {
 			numberRunes = append(numberRunes, runes[index])
 			index++
+		} else if runes[index] == '(' {
+			index++
+			return this.calcExpression(runes, index, true)
 		} else {
 			break
 		}
