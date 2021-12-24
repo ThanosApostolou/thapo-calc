@@ -14,7 +14,7 @@ func InitializeCommands(services *service.Services) {
 		var calcCommand = NewCalcCommand(services.GetCalcService())
 		calcCommand.Run()
 	} else {
-		var defaultCommand = NewDefaultCommand()
+		var defaultCommand = NewDefaultCommand(services.GetCalcService())
 		defaultCommand.Run()
 	}
 }

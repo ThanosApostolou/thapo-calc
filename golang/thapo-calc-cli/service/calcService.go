@@ -18,7 +18,6 @@ func NewCalcService() *CalcService {
 }
 
 func (this *CalcService) Calculate(expression string) (float64, error) {
-	fmt.Println("expression", expression)
 	expression = RemoveSpaceFromString(expression)
 	var runes = []rune(expression)
 	var index int = 0
