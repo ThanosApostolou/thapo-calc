@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"thapo-calc-cli/service"
+	"thapo-calc-lib/service"
 )
 
 const CALC_COMMAND = "calc"

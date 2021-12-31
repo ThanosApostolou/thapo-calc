@@ -2,7 +2,7 @@ package main
 
 import (
 	"thapo-calc-cli/command"
-	"thapo-calc-cli/service"
+	"thapo-calc-lib/service"
 )
 
 func main() {

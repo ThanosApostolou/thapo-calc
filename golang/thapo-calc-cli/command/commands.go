@@ -2,7 +2,7 @@ package command
 
 import (
 	"os"
-	"thapo-calc-cli/service"
+	"thapo-calc-lib/service"
 )
 
 type CommandI interface {

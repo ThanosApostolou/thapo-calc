@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"thapo-calc-cli/service"
+	"thapo-calc-lib/service"
 )
 
 type DefaultCommand struct {
