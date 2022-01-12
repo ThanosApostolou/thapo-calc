@@ -1,30 +1,69 @@
 package main
 
 import (
-	"fyne.io/fyne/v2/app"
+	"fmt"
+	"thapo-calc-gui/components"
+	"thapo-calc-gui/pages"
+	"thapo-calc-lib/service"
+
+	gservice "thapo-calc-gui/service"
+
+	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
-	"fyne.io/fyne/v2/widget"
 )
 
 type AppComp struct {
+	CalcService *service.CalcService
+	GuiService  *gservice.GuiService
+
+	State *AppCompState
+	El    *AppCompEl
 }
 
-func NewAppComp() *AppComp {
-	return &AppComp{}
+type AppCompState struct {
 }
 
-func (*AppComp) Init() {
-	a := app.New()
-	w := a.NewWindow("Hello")
+type AppCompEl struct {
+	Window     fyne.Window
+	WindowGrid *fyne.Container
+	HeaderComp *components.HeaderComp
+	Page       *pages.CalculatorPage
+}
 
-	hello := widget.NewLabel("Hello Fyne!")
-	w.SetContent(container.NewVBox(
-		hello,
-		widget.NewButton("Hi!", func() {
-			hello.SetText("Welcome :)")
-		}),
-	))
+func NewAppComp(calcService *service.CalcService, guiService *gservice.GuiService) *AppComp {
+	var page = pages.NewCalculatorPage(calcService, guiService)
+	var headerComp = components.NewHeaderComp()
+	var windowGrid = container.NewBorder(headerComp.El, nil, nil, nil, page.El.Container)
 
-	w.Show()
-	a.Run()
+	var window = guiService.CreateWindow("ThApo Calculator")
+	window.SetContent(windowGrid)
+
+	var el = AppCompEl{
+		Window:     window,
+		WindowGrid: windowGrid,
+		HeaderComp: headerComp,
+		Page:       page,
+	}
+
+	var appComp = &AppComp{
+		CalcService: calcService,
+		GuiService:  guiService,
+
+		State: &AppCompState{},
+		El:    &el,
+	}
+	appComp.El.Window.Resize(fyne.NewSize(400, 400))
+
+	return appComp
+}
+
+func (appcomp *AppComp) OnStarted() {
+	fmt.Println("AppComp OnStarted")
+	appcomp.El.Window.Show()
+	appcomp.El.Page.OnStarted()
+}
+
+func (appcomp *AppComp) OnStopped() {
+	fmt.Println("AppComp OnStopped")
+	appcomp.El.Page.OnStopped()
 }
