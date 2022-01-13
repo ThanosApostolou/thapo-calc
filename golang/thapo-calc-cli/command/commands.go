@@ -2,14 +2,14 @@ package command
 
 import (
 	"os"
-	"thapo-calc-lib/service"
+	"thapo-calc-lib/libservice"
 )
 
 type CommandI interface {
 	Run()
 }
 
-func InitializeCommands(services *service.Services) {
+func InitializeCommands(services *libservice.Services) {
 	if len(os.Args) > 1 && os.Args[1] == CALC_COMMAND {
 		var calcCommand = NewCalcCommand(services.GetCalcService())
 		calcCommand.Run()

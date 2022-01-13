@@ -1,4 +1,4 @@
-package service
+package libservice
 
 type Services struct {
 	calcService *CalcService

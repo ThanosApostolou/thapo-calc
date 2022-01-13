@@ -4,17 +4,17 @@ import (
 	"fmt"
 	"thapo-calc-gui/components"
 	"thapo-calc-gui/pages"
-	"thapo-calc-lib/service"
+	"thapo-calc-lib/libservice"
 
-	gservice "thapo-calc-gui/service"
+	"thapo-calc-gui/service"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
 )
 
 type AppComp struct {
-	CalcService *service.CalcService
-	GuiService  *gservice.GuiService
+	CalcService *libservice.CalcService
+	GuiService  *service.GuiService
 
 	State *AppCompState
 	El    *AppCompEl
@@ -30,7 +30,7 @@ type AppCompEl struct {
 	Page       *pages.CalculatorPage
 }
 
-func NewAppComp(calcService *service.CalcService, guiService *gservice.GuiService) *AppComp {
+func NewAppComp(calcService *libservice.CalcService, guiService *service.GuiService) *AppComp {
 	var page = pages.NewCalculatorPage(calcService, guiService)
 	var headerComp = components.NewHeaderComp()
 	var windowGrid = container.NewBorder(headerComp.El, nil, nil, nil, page.El.Container)

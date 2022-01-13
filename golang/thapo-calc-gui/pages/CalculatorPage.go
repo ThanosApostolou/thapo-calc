@@ -2,8 +2,9 @@ package pages
 
 import (
 	"fmt"
-	gservice "thapo-calc-gui/service"
-	"thapo-calc-lib/service"
+	"strconv"
+	"thapo-calc-gui/service"
+	"thapo-calc-lib/libservice"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
@@ -12,8 +13,8 @@ import (
 )
 
 type CalculatorPage struct {
-	CalcService *service.CalcService
-	GuiService  *gservice.GuiService
+	CalcService *libservice.CalcService
+	GuiService  *service.GuiService
 
 	State *CalculatorPageState
 	El    *CalculatorPageEl
@@ -23,14 +24,14 @@ type CalculatorPageState struct {
 }
 
 type CalculatorPageEl struct {
-	Container *fyne.Container
+	Container   *fyne.Container
+	InputEntry  *widget.Entry
+	ResultEntry *widget.Entry
 }
 
-func NewCalculatorPage(calcService *service.CalcService, guiService *gservice.GuiService) *CalculatorPage {
-	var helloLabel = widget.NewLabel("Hello Fyne!")
-	var helloButton = widget.NewButton("Hi!", func() {
-		helloLabel.SetText("Welcome :)")
-	})
+func NewCalculatorPage(calcService *libservice.CalcService, guiService *service.GuiService) *CalculatorPage {
+	var calculatorPage CalculatorPage
+	var equalButton = widget.NewButton("=", calculatorPage.calcResult)
 
 	var inputEntry = widget.NewEntry()
 	inputEntry.SetPlaceHolder("Input")
@@ -48,13 +49,15 @@ func NewCalculatorPage(calcService *service.CalcService, guiService *gservice.Gu
 
 	var page = container.NewVBox()
 	page.Add(inputResultRow)
-	page.Add(helloButton)
+	page.Add(equalButton)
 
 	var el = CalculatorPageEl{
-		Container: page,
+		Container:   page,
+		InputEntry:  inputEntry,
+		ResultEntry: resultEntry,
 	}
 
-	var calculatorPage = CalculatorPage{
+	calculatorPage = CalculatorPage{
 		CalcService: calcService,
 		GuiService:  guiService,
 
@@ -70,4 +73,11 @@ func (cpage *CalculatorPage) OnStarted() {
 
 func (cpage *CalculatorPage) OnStopped() {
 	fmt.Println("CalculatorPage OnStopped")
+}
+
+func (cpage *CalculatorPage) calcResult() {
+	fmt.Println("CalculatorPage calcResult")
+	res, _ := cpage.CalcService.Calculate(cpage.El.InputEntry.Text)
+	cpage.El.ResultEntry.SetText(strconv.FormatFloat(res, 'f', -1, 64))
+	// cpage.El.ResultEntry.SetText(fmt.Sprintf("%f", res))
 }

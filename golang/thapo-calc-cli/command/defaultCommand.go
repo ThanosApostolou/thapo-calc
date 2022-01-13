@@ -4,17 +4,17 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"thapo-calc-lib/service"
+	"thapo-calc-lib/libservice"
 )
 
 type DefaultCommand struct {
-	calcService *service.CalcService
+	calcService *libservice.CalcService
 	helpFlag    *bool
 }
 
 var _ CommandI = (*DefaultCommand)(nil) // implement interface
 
-func NewDefaultCommand(calcService *service.CalcService) *DefaultCommand {
+func NewDefaultCommand(calcService *libservice.CalcService) *DefaultCommand {
 	var helpFlag = flag.Bool("help", false, "help message")
 	return &DefaultCommand{
 		calcService: calcService,

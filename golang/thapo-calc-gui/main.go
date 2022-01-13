@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	gservice "thapo-calc-gui/service"
-	"thapo-calc-lib/service"
+	"thapo-calc-gui/service"
+	"thapo-calc-lib/libservice"
 )
 
 func main() {
@@ -21,18 +21,17 @@ func main() {
 }
 
 type Services struct {
-	CalcService *service.CalcService
-	GuiService  *gservice.GuiService
+	CalcService *libservice.CalcService
+	GuiService  *service.GuiService
 }
 
-func (ss *Services) GetCalcService() *service.CalcService {
+func (ss *Services) GetCalcService() *libservice.CalcService {
 	return ss.CalcService
 }
 
 func InitializeServices() *Services {
-	var calcService = service.NewCalcService()
-	var guiService = gservice.NewGuiService()
-	// fmt.Println("res2", calcService.CalcExpression(""))
+	var calcService = libservice.NewCalcService()
+	var guiService = service.NewGuiService()
 	return &Services{
 		CalcService: calcService,
 		GuiService:  guiService,

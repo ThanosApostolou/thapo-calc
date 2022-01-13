@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"thapo-calc-lib/service"
+	"thapo-calc-lib/libservice"
 )
 
 const CALC_COMMAND = "calc"
 
 type CalcCommand struct {
-	calcService *service.CalcService // injected
+	calcService *libservice.CalcService // injected
 	Command     string
 	cmdFlagSet  *flag.FlagSet
 	helpFlag    *bool
@@ -19,7 +19,7 @@ type CalcCommand struct {
 
 var _ CommandI = (*CalcCommand)(nil) // implement interface
 
-func NewCalcCommand(calcService *service.CalcService) *CalcCommand {
+func NewCalcCommand(calcService *libservice.CalcService) *CalcCommand {
 	var cmdFlagSet = flag.NewFlagSet(CALC_COMMAND, flag.ContinueOnError)
 	var helpFlag = cmdFlagSet.Bool("help", false, "help message for calc")
 	return &CalcCommand{
@@ -56,5 +56,5 @@ func (this *CalcCommand) Calc() {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	fmt.Printf("result %v", result)
+	fmt.Println(result)
 }
