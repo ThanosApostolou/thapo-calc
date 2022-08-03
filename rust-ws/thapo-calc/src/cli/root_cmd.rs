@@ -1,6 +1,8 @@
-use clap::{Args, Parser, Subcommand};
+use clap::{Parser, Subcommand};
 use serde::{Deserialize, Serialize};
-use std::{default, fmt::Debug};
+use std::fmt::Debug;
+
+use crate::gui;
 
 use super::{
     calc_cmd::calc_cmd::{calc_cmd_handler, CalcCmd},
@@ -41,7 +43,8 @@ pub fn root_cmd_handler(root_cmd: RootCmd) {
             }
         },
         None => {
-            println!("root")
+            println!("root");
+            dioxus::desktop::launch(gui::app::app);
         }
     }
 }

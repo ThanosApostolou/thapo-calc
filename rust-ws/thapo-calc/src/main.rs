@@ -1,5 +1,3 @@
-#[tokio::main]
-async fn main() {
-    thapo_calc::start_application();
+pub fn main() {
+    thapo_calc::run();
 }
-

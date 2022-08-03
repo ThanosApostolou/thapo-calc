@@ -2,15 +2,34 @@
 name = "thapo-calc"
 version = "0.1.0"
 edition = "2021"
+default-run = "thapo-calc"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+
+# leave the `lib` declaration
+[lib]
+crate-type = ["staticlib", "cdylib", "rlib"]
+
 [dependencies]
-clap = { version = "3.2.16", features = ["derive"] }
+rust-common = { path = "../rust-common" }
 num = "0.4.0"
-rand = "0.8.5"
+# rand = "0.8.5"
 regex = "1.6.0"
 serde = { version = "1.0.141", features = ["derive"] }
 serde_json = "1.0.82"
-time = "0.3.12"
-tokio = { version = "1.20.1", features = ["full"] }
+# time = "0.3.12"
+# tokio = { version = "1.20.1", features = ["full"] }
+
+[target.'cfg(any(target_family = "unix", target_family = "windows"))'.dependencies]
+dioxus = { version = "0.2.4", features = ["desktop"] }
+clap = { version = "3.2.16", features = ["derive"] }
+
+# [target.'cfg(android)'.dependencies]
+# dioxus = { version = "0.2.4", features = ["mobile"] }
+
+# [target.'cfg(ios)'.dependencies]
+# dioxus = { version = "0.2.4", features = ["mobile"] }
+
+[target.'cfg(target_family = "wasm")'.dependencies]
+dioxus = { version = "0.2.4", features = ["web"] }
