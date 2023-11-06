@@ -1,8 +1,7 @@
 #[cfg(any(target_family = "unix", target_family = "windows"))]
 pub mod cli;
+pub mod domain;
 pub mod gui;
-
-use dioxus::prelude::*;
 
 #[cfg(any(target_family = "unix", target_family = "windows"))]
 pub fn run() {
